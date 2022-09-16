@@ -42,6 +42,7 @@
 //#define CAMERA_MODEL_M5STACK_WIDE
 #define CAMERA_MODEL_AI_THINKER
 
+// Don't need 10
 #define MAX_CLIENTS   5
 
 #include "camera_pins.h"
@@ -75,9 +76,11 @@ uint8_t       noActiveClients;       // number of active clients
 SemaphoreHandle_t frameSync = NULL;
 
 // We will try to achieve 24 FPS frame rate
+// AI Thinker on octoprint is ok at 20fps
 const int FPS = 20;
 
 // We will handle web client requests every 100 ms (10 Hz)
+// This seems to work better in the AI Thinker at 50
 const int WSINTERVAL = 50;
 
 
@@ -466,6 +469,7 @@ void setup()
     //    .frame_size     = FRAMESIZE_XGA,
     //    .frame_size     = FRAMESIZE_VGA,
     //    .frame_size     = FRAMESIZE_UXGA,
+    // AI Thinker and Octolapse seems to hit a sweet spot at SXGA and jpg qual at 10
     .frame_size     = FRAMESIZE_SXGA,
     .jpeg_quality   = 10,
     .fb_count       = 2
@@ -483,6 +487,7 @@ void setup()
   }
 
   sensor_t* s = esp_camera_sensor_get();
+  // Whoops - AI Thinker is upside down and backwards if true
   s->set_vflip(s, false);
 
   //  Configure and connect to WiFi
