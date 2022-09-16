@@ -6,7 +6,6 @@
 **Video:** https://youtu.be/bsAVJSZeSmc
 
 
-
 **Updated on 2021-07-01:**
 
 - OP updated to account for recent repo changes by Espressif
