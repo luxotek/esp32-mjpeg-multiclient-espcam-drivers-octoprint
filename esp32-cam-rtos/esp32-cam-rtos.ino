@@ -37,12 +37,12 @@
 
 // Select camera model
 //#define CAMERA_MODEL_WROVER_KIT
-#define CAMERA_MODEL_ESP_EYE
+//#define CAMERA_MODEL_ESP_EYE
 //#define CAMERA_MODEL_M5STACK_PSRAM
 //#define CAMERA_MODEL_M5STACK_WIDE
-//#define CAMERA_MODEL_AI_THINKER
+#define CAMERA_MODEL_AI_THINKER
 
-#define MAX_CLIENTS   10
+#define MAX_CLIENTS   5
 
 #include "camera_pins.h"
 
@@ -75,10 +75,10 @@ uint8_t       noActiveClients;       // number of active clients
 SemaphoreHandle_t frameSync = NULL;
 
 // We will try to achieve 24 FPS frame rate
-const int FPS = 24;
+const int FPS = 20;
 
 // We will handle web client requests every 100 ms (10 Hz)
-const int WSINTERVAL = 100;
+const int WSINTERVAL = 50;
 
 
 // ======== Server Connection Handler Task ==========================
@@ -463,10 +463,11 @@ void setup()
     //    .frame_size     = FRAMESIZE_QVGA,
     //    .frame_size     = FRAMESIZE_UXGA,
     //    .frame_size     = FRAMESIZE_SVGA,
-    .frame_size     = FRAMESIZE_XGA,
+    //    .frame_size     = FRAMESIZE_XGA,
     //    .frame_size     = FRAMESIZE_VGA,
     //    .frame_size     = FRAMESIZE_UXGA,
-    .jpeg_quality   = 16,
+    .frame_size     = FRAMESIZE_SXGA,
+    .jpeg_quality   = 10,
     .fb_count       = 2
   };
 
@@ -482,7 +483,7 @@ void setup()
   }
 
   sensor_t* s = esp_camera_sensor_get();
-  s->set_vflip(s, true);
+  s->set_vflip(s, false);
 
   //  Configure and connect to WiFi
   IPAddress ip;
