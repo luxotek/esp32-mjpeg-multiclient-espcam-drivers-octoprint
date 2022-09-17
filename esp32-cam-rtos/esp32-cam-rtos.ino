@@ -76,12 +76,12 @@ uint8_t       noActiveClients;       // number of active clients
 SemaphoreHandle_t frameSync = NULL;
 
 // We will try to achieve 24 FPS frame rate
-// AI Thinker on octoprint is ok at 20fps
-const int FPS = 20;
+// AI Thinker on octoprint is ok at 15fps
+const int FPS = 15;
 
 // We will handle web client requests every 100 ms (10 Hz)
-// This seems to work better in the AI Thinker at 50
-const int WSINTERVAL = 50;
+// This seems to work better in the AI Thinker at 40
+const int WSINTERVAL = 40;
 
 
 // ======== Server Connection Handler Task ==========================
@@ -261,7 +261,7 @@ void handleJPGSstream(void)
   int rc = xTaskCreatePinnedToCore(
              streamCB,
              "strmCB",
-             3 * 1024,
+             4 * 1024,
              (void*) info,
              2,
              &info->task,
@@ -469,9 +469,9 @@ void setup()
     //    .frame_size     = FRAMESIZE_XGA,
     //    .frame_size     = FRAMESIZE_VGA,
     //    .frame_size     = FRAMESIZE_UXGA,
-    // AI Thinker and Octolapse seems to hit a sweet spot at SXGA and jpg qual at 10
+    // AI Thinker and Octolapse seems to hit a sweet spot at SXGA and jpg qual at 20
     .frame_size     = FRAMESIZE_SXGA,
-    .jpeg_quality   = 10,
+    .jpeg_quality   = 20,
     .fb_count       = 2
   };
 
@@ -513,7 +513,7 @@ void setup()
   xTaskCreatePinnedToCore(
     mjpegCB,
     "mjpeg",
-    2 * 1024,
+    4 * 1024,
     NULL,
     2,
     &tMjpeg,
